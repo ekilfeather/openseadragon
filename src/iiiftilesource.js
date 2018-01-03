@@ -319,7 +319,9 @@ $.extend( $.IIIFTileSource.prototype, $.TileSource.prototype, /** @lends OpenSea
         //# constants
         var IIIF_ROTATION = '0',
             //## get the scale (level as a decimal)
-            scale = Math.pow( 0.5, this.maxLevel - level ),
+            scale = Math.pow(2,  this.maxLevel - level),
+            pctValue = 'pct:' + (100 / scale),
+            //scale = Math.pow( 0.5, this.maxLevel - level ),
 
             //# image dimensions at this level
             levelWidth = Math.ceil( this.width * scale ),
@@ -363,7 +365,7 @@ $.extend( $.IIIFTileSource.prototype, $.TileSource.prototype, /** @lends OpenSea
             iiifSize = Math.ceil( iiifTileW * scale ) + ",";
             iiifRegion = [ iiifTileX, iiifTileY, iiifTileW, iiifTileH ].join( ',' );
         }
-        uri = [ this['@id'], iiifRegion, iiifSize, IIIF_ROTATION, iiifQuality ].join( '/' );
+        uri = [ this['@id'], iiifRegion, pctValue, IIIF_ROTATION, iiifQuality ].join( '/' );
 
         return uri;
     }
